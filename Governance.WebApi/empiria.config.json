@@ -92,6 +92,11 @@
       "type": "WebApi.Client",
       "key": "ServiceDirectory.Path",
       "value": "v1/system/service-directory"
+    },
+    {
+      "type": "Governance",
+      "key": "DocumentsLibrary.BaseAddress",
+      "value": "{{DOCUMENTS-LIBRARY.BASEADDRESS}}"
     }
   ]
 }

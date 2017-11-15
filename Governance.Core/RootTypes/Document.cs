@@ -17,6 +17,12 @@ namespace Empiria.Governance {
   /// <summary>Handles information about a document.</summary>
   public class Document : BaseObject {
 
+    #region Fields
+
+    private readonly string libraryBaseAddress = ConfigurationData.GetString("DocumentsLibrary.BaseAddress");
+
+    #endregion Fields
+
     #region Constructors and parsers
 
     protected Document() {
@@ -107,9 +113,19 @@ namespace Empiria.Governance {
 
 
     [DataField("DocumentURL")]
-    public string Url {
+    public string FilePath {
       get;
       private set;
+    }
+
+    public string Url {
+      get {
+        if (this.FilePath.StartsWith("~/")) {
+          return this.FilePath.Replace("~/", libraryBaseAddress + "/");
+        } else {
+          return this.FilePath;
+        }
+      }
     }
 
 

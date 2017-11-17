@@ -145,10 +145,31 @@ namespace Empiria.Governance.Contracts {
     public string AsHypertext {
       get {
         if (_asHypertext == null) {
-          _asHypertext = Presentation.Hypertext.ToTermDefinitionHypertext(this.Text, this.Contract);
+          _asHypertext = this.BuildHypertext();
         }
         return _asHypertext;
       }
+    }
+
+    private string BuildHypertext() {
+      string hypertext = String.Empty;
+
+      if (this.Section == "Cláusulas" && this.Number == "1.1") {
+        var definitions = this.Contract.GetSectionClauses("Definiciones");
+
+        hypertext = this.Text + "<br><br>";
+
+        foreach (var definition in definitions) {
+          var temp = Presentation.Hypertext.ToTermDefinitionHypertext(definition.Text, this.Contract);
+
+          hypertext += $"<span class='clause-subtitle'>{definition.Title}</span><br>{temp}<br><br>";
+        }
+
+      } else {
+        hypertext = Presentation.Hypertext.ToTermDefinitionHypertext(this.Text, this.Contract);
+      }
+
+      return hypertext;
     }
 
     public string Ordering {

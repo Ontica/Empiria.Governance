@@ -29,7 +29,7 @@ namespace Empiria.Governance.Government {
     }
 
     static internal void WriteProcedure(Procedure o) {
-      var op = DataOperation.Parse("writeLISProcedure",
+      var op = DataOperation.Parse("writeGRCProcedure",
                                     o.Id, o.UID, o.Keywords, o.BpmnDiagram.Id);
 
       DataWriter.Execute(op);

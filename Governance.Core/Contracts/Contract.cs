@@ -132,8 +132,6 @@ namespace Empiria.Governance.Contracts {
       return Clause.GetList(this, keywords)
                    .ToFixedList();
     }
-
-
     internal FixedList<Clause> GetClausesFromText(string clausesAsText) {
       if (clausesAsText.Contains("Anexo")) {
         return new FixedList<Clause>();
@@ -156,6 +154,11 @@ namespace Empiria.Governance.Contracts {
       } else {
         return new FixedList<Clause>();
       }
+    }
+
+
+    public FixedList<Clause> GetSectionClauses(string sectionName) {
+      return this.Clauses.FindAll((x) => x.Section == sectionName);
     }
 
 

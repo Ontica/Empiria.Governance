@@ -124,11 +124,11 @@ namespace Empiria.Governance.WebApi {
 
 
     [HttpPost]
-    [Route("v1/contracts/{contractUID}/clauses/update-all")]
+    [Route("v1/contracts/clauses/update-all")]
     public void UpdateAllContractClause() {
       try {
-
         Clause.UpdateAll();
+
       } catch (Exception e) {
         throw base.CreateHttpException(e);
       }

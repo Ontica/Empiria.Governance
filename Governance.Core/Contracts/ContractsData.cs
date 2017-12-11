@@ -42,7 +42,8 @@ namespace Empiria.Governance.Contracts {
                         o.Name, (char) o.RuleType, o.ReferenceRuleId, o.Description,
                         o.Notes, o.AppliesTo, o.Verb, o.Action, o.WhenPredicate,
                         o.ActionTimeCondition, o.ExtensionData.ToString(),
-                        o.Tags, o.Keywords, o.WorkflowObjectId, o.DocumentItems);
+                        o.Tags, o.Keywords, o.WorkflowObjectId,
+                        o.DocumentItems, o.ProceduresAsText);
 
       DataWriter.Execute(op);
     }

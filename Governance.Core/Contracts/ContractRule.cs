@@ -13,6 +13,9 @@ using System.Collections.Generic;
 using Empiria.Data;
 using Empiria.Json;
 
+using Empiria.Governance.Government;
+using System.Linq;
+
 namespace Empiria.Governance.Contracts {
 
   /// <summary>Characterizes an obligation or right enforced by law or by a legal agreement.</summary>
@@ -45,6 +48,7 @@ namespace Empiria.Governance.Contracts {
     static public ContractRule Parse(string uid) {
       return BaseObject.ParseKey<ContractRule>(uid);
     }
+
 
 
     static internal List<ContractRule> GetList(Clause clause) {
@@ -230,6 +234,24 @@ namespace Empiria.Governance.Contracts {
     }
 
 
+    private FixedList<Procedure> procedures = null;
+    public FixedList<Procedure> Procedures {
+      get {
+        if (procedures == null) {
+          procedures = this.GetProceduresFromText();
+        }
+        return procedures;
+      }
+    }
+
+
+    [DataField("Procedures")]
+    internal string ProceduresAsText {
+      get;
+      private set;
+    }
+
+
     private string _asHypertext = null;
     public string AsHypertext {
       get {
@@ -250,6 +272,7 @@ namespace Empiria.Governance.Contracts {
     #endregion Public properties
 
     #region Public methods
+
     protected override void OnSave() {
       if (this.UID.Length == 0) {
         this.UID = EmpiriaString.BuildRandomString(6, 24);
@@ -287,10 +310,29 @@ namespace Empiria.Governance.Contracts {
       clone.Description = this.Description;
       clone.DocumentItems = this.DocumentItems;
       clone.WorkflowObjectId = this.WorkflowObjectId;
+      clone.ProceduresAsText = this.ProceduresAsText;
 
       return clone;
     }
 
+
+    private FixedList<Procedure> GetProceduresFromText() {
+      var temp = this.ProceduresAsText.Replace(',', ' ')
+                                      .Replace(';', ' ');
+
+      var textParts = temp.Split(' ')
+                          .Where((x) => EmpiriaString.IsQuantity(x));
+
+      if (textParts == null) {
+        return new FixedList<Procedure>();
+      }
+
+      List<Procedure> list = new List<Procedure>();
+      foreach (var part in textParts) {
+        list.Add(Procedure.Parse(int.Parse(part)));
+      }
+      return list.ToFixedList();
+    }
 
     private void Load(JsonObject data) {
 

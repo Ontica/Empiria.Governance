@@ -40,6 +40,7 @@ namespace Empiria.Governance.WebApi {
           name = rule.Name,
           description = rule.Description,
           workflowObjectUID = WorkflowObject.Parse(rule.WorkflowObjectId).UID,
+          procedures = rule.Procedures.ToResponse()
         };
 
         array.Add(item);

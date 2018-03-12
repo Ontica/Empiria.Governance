@@ -26,6 +26,7 @@ namespace Empiria.Governance.WebApi {
           uid = procedure.UID,
           name = procedure.Name,
           shortName = procedure.ShortName,
+          modality = procedure.Modality,
           code = procedure.Code,
           theme = procedure.Theme,
           executionMode = procedure.ExecutionMode,
@@ -47,6 +48,7 @@ namespace Empiria.Governance.WebApi {
         uid = procedure.UID,
         name = procedure.Name,
         shortName = procedure.ShortName,
+        modality = procedure.Modality,
         code = procedure.Code,
         theme = procedure.Theme,
 
@@ -73,10 +75,12 @@ namespace Empiria.Governance.WebApi {
     static internal object ToShortResponse(this Procedure procedure) {
       return new {
         uid = procedure.UID,
-        shortName = procedure.ShortName,
         name = procedure.Name,
+        shortName = procedure.ShortName,
+        modality = procedure.Modality,
         code = procedure.Code,
         theme = procedure.Theme,
+
         executionMode = procedure.ExecutionMode,
         projectType = procedure.ProjectType,
         officialUrl = procedure.OfficialURL,

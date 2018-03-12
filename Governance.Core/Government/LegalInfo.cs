@@ -114,6 +114,26 @@ namespace Empiria.Governance.Government {
       private set;
     } = String.Empty;
 
+
+    [DataField("Ronda24Consorcio")]
+    public string Ronda24Consorcio {
+      get;
+      private set;
+    } = String.Empty;
+
+    [DataField("Ronda24Individual")]
+    public string Ronda24Individual {
+      get;
+      private set;
+    } = String.Empty;
+
+
+    [DataField("Santuario")]
+    public string Santuario {
+      get;
+      private set;
+    } = String.Empty;
+
     #endregion Properties
 
   }  // class LegalInfo

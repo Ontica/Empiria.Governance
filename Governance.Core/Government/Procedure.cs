@@ -99,6 +99,9 @@ namespace Empiria.Governance.Government {
         UpdateAllRelatedClauses(procedure, Contract.Parse(568), procedure.LegalInfo.Ronda14Individual);
         UpdateAllRelatedClauses(procedure, Contract.Parse(569), procedure.LegalInfo.Ronda21Consorcio);
         UpdateAllRelatedClauses(procedure, Contract.Parse(570), procedure.LegalInfo.Ronda21Individual);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(575), procedure.LegalInfo.Ronda24Consorcio);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(576), procedure.LegalInfo.Ronda24Individual);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(577), procedure.LegalInfo.Santuario);
       }
     }
 
@@ -115,9 +118,12 @@ namespace Empiria.Governance.Government {
           procedureId = EmpiriaString.ToInteger(diagramName);
           var procedure = Procedure.Parse(procedureId);
           if (procedure.Code == "No disponible") {
-            diagramName = $"[{procedure.Id.ToString("000")}] {procedure.Name}";
+            diagramName = $"[{procedure.Id.ToString("000")}] {procedure.ShortName}";
           } else {
-            diagramName = $"[{procedure.Id.ToString("000")}] {procedure.Code} {procedure.Name}";
+            diagramName = $"[{procedure.Id.ToString("000")}] {procedure.Code} {procedure.ShortName}";
+          }
+          if (procedure.Modality.Length != 0) {
+            diagramName += $" (Modalidad: {procedure.Modality})";
           }
 
           diagramName = EmpiriaString.TrimAll(diagramName);
@@ -192,6 +198,12 @@ namespace Empiria.Governance.Government {
       private set;
     }
 
+    [DataField("Modality")]
+    public string Modality {
+      get;
+      private set;
+    }
+
     [DataField("Code")]
     public string Code {
       get;
@@ -223,7 +235,8 @@ namespace Empiria.Governance.Government {
 
     public string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.Code, this.Name, this.EntityName, this.AuthorityContact, this.ProjectType,
+        return EmpiriaString.BuildKeywords(this.Code, this.ShortName, this.Modality, this.Name,
+                                           this.EntityName, this.AuthorityContact, this.ProjectType,
                                            this.FilingCondition.StartsWhenTrigger, this.FilingCondition.HowToFileAddress,
                                            this.Theme, this.LegalInfo.LegalBasis, this.LegalInfo.Obligation);
       }

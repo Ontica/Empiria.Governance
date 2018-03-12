@@ -93,6 +93,7 @@ namespace Empiria.Governance.Government {
       private set;
     } = String.Empty;
 
+
     [DataField("MaxFilingTermNotes")]
     public string MaxFilingTermNotes {
       get;
@@ -100,11 +101,39 @@ namespace Empiria.Governance.Government {
     } = String.Empty;
 
 
+    [DataField("PreventionTerm")]
+    public string PreventionTerm {
+      get;
+      private set;
+    } = String.Empty;
+
+
+    [DataField("PreventionTermUnit")]
+    public string PreventionTermUnit {
+      get;
+      private set;
+    } = String.Empty;
+
+
+    [DataField("PreventionResponseTerm")]
+    public string PreventionResponseTerm {
+      get;
+      private set;
+    } = String.Empty;
+
+
+    [DataField("PreventionResponseTermUnit")]
+    public string PreventionResponseTermUnit {
+      get;
+      private set;
+    } = String.Empty;
+
     [DataField("IssuanceLegalTerm")]
     public string IssuanceLegalTerm {
       get;
       private set;
     } = String.Empty;
+
 
     [DataField("IssuanceLegalTermUnit")]
     public string IssuanceLegalTermUnit {

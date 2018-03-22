@@ -50,7 +50,7 @@
     },
     {
       "type": "Data",
-      "key": "§DataSource.Default",
+      "key": "DataSource.Default",
       "value": "{{DEFAULT-DATABASE-CONNECTION}}"
     },
     {
@@ -77,21 +77,6 @@
       "type": "Security",
       "key": "ChangePasswordKey",
       "value": "{{CHANGE-PASSWORD-KEY}}"
-    },
-    {
-      "type": "WebApi.Client",
-      "key": "Default.WebApiServer",
-      "value": "Steps"
-    },
-    {
-      "type": "WebApi.Client",
-      "key": "WebApiServer.Steps",
-      "value": "{{WEBAPISERVER.STEPS}}"
-    },
-    {
-      "type": "WebApi.Client",
-      "key": "ServiceDirectory.Path",
-      "value": "v1/system/service-directory"
     },
     {
       "type": "Governance",

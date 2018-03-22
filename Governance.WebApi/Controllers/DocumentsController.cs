@@ -11,7 +11,6 @@ using System;
 using System.Web.Http;
 
 using Empiria.WebApi;
-using Empiria.WebApi.Models;
 
 namespace Empiria.Governance.WebApi {
 

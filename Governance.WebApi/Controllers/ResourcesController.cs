@@ -12,7 +12,6 @@ using System.Web.Http;
 
 using Empiria.Collections;
 using Empiria.WebApi;
-using Empiria.WebApi.Models;
 
 using Empiria.Steps.Resources;
 using Empiria.Steps.ProjectManagement;

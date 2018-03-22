@@ -11,10 +11,8 @@ using System;
 using System.Web.Http;
 
 using Empiria.WebApi;
-using Empiria.WebApi.Models;
 
 using Empiria.Contacts;
-
 using Empiria.Steps.ProjectManagement;
 
 namespace Empiria.Governance.WebApi {

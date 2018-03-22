@@ -58,12 +58,10 @@
     <ProjectReference Include="..\Governance.Core\Empiria.Governance.csproj" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
-    <PackageReference Include="Empiria.Microservices" Version="2.0.0" />
     <PackageReference Include="Empiria.Steps.ProjectManagement" Version="1.0.0" />
     <PackageReference Include="Empiria.Postings.WebApi" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
-    <ProjectReference Include="..\..\extensions\Microservices\Empiria.Microservices.csproj" />
     <ProjectReference Include="..\..\steps\Steps.ProjectManagement\Empiria.Steps.ProjectManagement.csproj" />
     <ProjectReference Include="..\..\postings\Postings.WebApi\Empiria.Postings.WebApi.csproj" />
   </ItemGroup>

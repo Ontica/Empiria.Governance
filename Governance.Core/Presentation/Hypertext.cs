@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
+using Empiria.DataTypes;
 using Empiria.Governance.Contracts;
 
 namespace Empiria.Governance.Presentation {
@@ -26,17 +27,17 @@ namespace Empiria.Governance.Presentation {
 
       foreach (var document in documentsList) {
 
-        // dictionary work
+        // Begin dictionary work
 
-        var dictionary = new Dictionary<string, string>(2);
+        var textReplacementRules = new Dictionary<string, string>(2);
 
-        dictionary.Add("{{URL}}", document.Url);
-        dictionary.Add("{{ACRONYM}}", document.Code);
-        dictionary.Add("{{BUBBLE-TEXT}}", document.Name);
+        textReplacementRules.Add("{{URL}}", document.Url);
+        textReplacementRules.Add("{{ACRONYM}}", document.Code);
+        textReplacementRules.Add("{{BUBBLE-TEXT}}", document.Name);
 
-        var content = template.ParseContent(dictionary);
+        var content = template.ParseContent(textReplacementRules);
 
-        // END dictionary work
+        // End dictionary work
 
         string textToFind = String.Format(@"\b{0}\b", document.Code);
 
@@ -50,23 +51,25 @@ namespace Empiria.Governance.Presentation {
 
       var clausesList = Clause.GetList(contract);
       clausesList = clausesList.FindAll((x) => x.Section == "Definiciones" && x.Number == "1.1");
-      clausesList.Sort((x, y) => x.Title.CompareTo(y.Title));
+      clausesList.Sort((x, y) => x.Title.Length.CompareTo(y.Title.Length));
+      clausesList.Reverse();
 
       var hypertext = source;
 
       foreach (var clause in clausesList) {
 
-        // dictionary work
-        var dictionary = new Dictionary<string, string>(2);
+        // Begin dictionary work
+
+        var textReplacementRules = new Dictionary<string, string>(2);
 
         var clauseTitle = CleanClauseTitle(clause.Title);
 
-        dictionary.Add("{{TERM}}", clauseTitle);
-        dictionary.Add("{{DEFINITION}}", clause.Text);
+        textReplacementRules.Add("{{TERM}}", clauseTitle);
+        textReplacementRules.Add("{{DEFINITION}}", clause.Text);
 
-        var content = template.ParseContent(dictionary);
+        var content = template.ParseContent(textReplacementRules);
 
-        // END dictionary work
+        // End dictionary work
 
         var regex = new Regex(String.Format(@"(?<!<[^>]*)\b{0}\b", clauseTitle));
 
@@ -84,25 +87,6 @@ namespace Empiria.Governance.Presentation {
       return EmpiriaString.TrimAll(title);
     }
   }
-
-  ///// <summary>Represents a time unit used to describe activity due terms.</summary>
-  //public class Hypertext {
-
-  //  public AddRules(ReplacementRulesList list) {
-  //    Assertion.AssertObject(list, "list");
-
-  //    this.rules = list;
-  //  }
-
-  //  public string Convert(string content) {
-  //    string hypertext = content;
-
-  //    foreach (var rule in this.ReplacementRules) {
-  //      hypertext = rule.ApplyTo(hypertext);
-  //    }
-
-  //    return hypertext;
-  //  }
 
   //}  // class Hypertext
 

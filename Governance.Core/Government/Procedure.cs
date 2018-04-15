@@ -109,6 +109,7 @@ namespace Empiria.Governance.Government {
       var directory = new System.IO.DirectoryInfo(@"E:\empiria.files\covar.steps\bpmn.diagrams\");
 
       var files = directory.GetFiles("*.bpmn");
+      var tags = String.Empty;
 
       foreach (var file in files) {
         var diagramName = file.Name.Replace(".bpmn", String.Empty);
@@ -124,14 +125,15 @@ namespace Empiria.Governance.Government {
           }
           if (procedure.Modality.Length != 0) {
             diagramName += $" (Modalidad: {procedure.Modality})";
-          }
+         }
 
           diagramName = EmpiriaString.TrimAll(diagramName);
+          tags = procedure.Keywords;
         }
 
         var xml = System.IO.File.ReadAllText(file.FullName);
 
-        var diagram = new BpmnDiagram(diagramName, xml);
+        var diagram = new BpmnDiagram(diagramName, xml, tags);
 
         diagram.Save();
 

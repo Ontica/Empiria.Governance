@@ -24,9 +24,9 @@ namespace Empiria.Governance.WebApi {
 
     [HttpGet]
     [Route("v1/process-definitions")]
-    public CollectionModel GetProcessDefinitionList() {
+    public CollectionModel GetProcessDefinitionList([FromUri] string keywords = "") {
       try {
-        var list = BpmnDiagram.GetList();
+        var list = BpmnDiagram.Search(keywords);
 
         return new CollectionModel(this.Request, list.ToResponse(),
                                    typeof(BpmnDiagram).FullName);

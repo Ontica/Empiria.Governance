@@ -12,6 +12,7 @@ using System.Collections.Generic;
 
 using Empiria.DataTypes;
 using Empiria.Json;
+using Empiria.StateEnums;
 
 using Empiria.Governance.Government;
 
@@ -150,8 +151,8 @@ namespace Empiria.Governance.Contracts {
     }
 
 
-    [DataField("Status", Default = GeneralObjectStatus.Active)]
-    public GeneralObjectStatus Status {
+    [DataField("Status", Default = EntityStatus.Active)]
+    public EntityStatus Status {
       get;
       private set;
     }
@@ -213,7 +214,7 @@ namespace Empiria.Governance.Contracts {
       this.StartsWhenTrigger = data.Get<string>("startsWhenTrigger", this.StartsWhenTrigger);
 
       this.Notes = data.Get<string>("notes", this.Notes);
-      this.Status = data.Get<GeneralObjectStatus>("status", this.Status);
+      this.Status = data.Get<EntityStatus>("status", this.Status);
     }
 
     #endregion Private methods

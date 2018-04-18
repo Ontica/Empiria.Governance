@@ -13,8 +13,6 @@ using System.Collections.Generic;
 using Empiria.DataTypes;
 using Empiria.Json;
 
-using Empiria.Steps;
-
 using Empiria.Governance.Government;
 
 namespace Empiria.Governance.Contracts {

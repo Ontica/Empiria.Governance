@@ -11,7 +11,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using Empiria.Steps.WorkflowDefinition;
+using Empiria.Workflow.Definition;
 
 namespace Empiria.Governance.WebApi {
 

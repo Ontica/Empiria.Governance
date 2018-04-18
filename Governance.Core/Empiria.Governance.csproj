@@ -51,12 +51,10 @@
     <NoWarn />
     <WarningsAsErrors />
   </PropertyGroup>
-  <ItemGroup>
-  </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
-    <PackageReference Include="Empiria.Steps.WorkflowDefinition" Version="1.0.0" />
+    <PackageReference Include="Empiria.Workflow" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
-    <ProjectReference Include="..\..\steps\Steps.WorkflowDefinition\Empiria.Steps.WorkflowDefinition.csproj" />
+    <ProjectReference Include="..\..\steps\Steps.Workflow\Empiria.Workflow.csproj" />
   </ItemGroup>
 </Project>

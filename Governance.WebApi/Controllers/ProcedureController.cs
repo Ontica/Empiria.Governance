@@ -13,7 +13,7 @@ using System.Web.Http;
 using Empiria.Json;
 using Empiria.WebApi;
 
-using Empiria.Steps.WorkflowDefinition;
+using Empiria.Workflow.Definition;
 
 using Empiria.Governance.Government;
 

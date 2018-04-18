@@ -13,8 +13,6 @@ using System.Web.Http;
 using Empiria.DataTypes;
 using Empiria.WebApi;
 
-using Empiria.Steps;
-
 using Empiria.Governance.Government;
 
 namespace Empiria.Governance.WebApi {

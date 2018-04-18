@@ -11,8 +11,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+using Empiria.Workflow.Definition;
+
 using Empiria.Governance.Contracts;
-using Empiria.Steps.WorkflowDefinition;
 
 namespace Empiria.Governance.WebApi {
 

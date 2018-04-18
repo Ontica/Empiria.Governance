@@ -17,7 +17,7 @@ using Empiria.Json;
 using Empiria.Governance.Contracts;
 using Empiria.Governance.Presentation;
 
-using Empiria.Steps.WorkflowDefinition;
+using Empiria.Workflow.Definition;
 
 namespace Empiria.Governance.Government {
 

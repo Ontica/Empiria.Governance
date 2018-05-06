@@ -70,13 +70,6 @@ namespace Empiria.Governance.Contracts {
 
     #region Public properties
 
-    [DataField("UID")]
-    public string UID {
-      get;
-      private set;
-    }
-
-
     [DataField("LegalDocumentItemId")]
     internal int LegalDocumentItemId {
       get;
@@ -160,13 +153,6 @@ namespace Empiria.Governance.Contracts {
     #endregion Public properties
 
     #region Public methods
-
-    protected override void OnBeforeSave() {
-      if (this.IsNew) {
-        this.UID = EmpiriaString.BuildRandomString(6, 24);
-      }
-    }
-
 
     protected override void OnSave() {
       ContractsData.WriteRelatedProcedure(this);

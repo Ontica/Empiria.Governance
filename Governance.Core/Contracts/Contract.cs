@@ -75,18 +75,12 @@ namespace Empiria.Governance.Contracts {
     }
 
 
-    [DataField("ObjectKey")]
-    public string UID {
-      get;
-      private set;
-    }
-
-
     [DataField("ObjectName")]
     public string Name {
       get;
       private set;
     }
+
 
     [DataField("ObjectExtData.url")]
     public string Url {

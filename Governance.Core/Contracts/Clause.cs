@@ -93,13 +93,6 @@ namespace Empiria.Governance.Contracts {
 
     #region Public properties
 
-    [DataField("UID")]
-    public string UID {
-      get;
-      private set;
-    }
-
-
     [DataField("DocumentId")]
     internal int ContractId {
       get;
@@ -276,13 +269,6 @@ namespace Empiria.Governance.Contracts {
                                    $"was not found in contract clause with uid = '{this.UID}'");
 
       return item;
-    }
-
-
-    protected override void OnBeforeSave() {
-      if (this.UID.Length == 0) {
-        this.UID = EmpiriaString.BuildRandomString(6, 24);
-      }
     }
 
 

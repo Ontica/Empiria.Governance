@@ -77,7 +77,7 @@ namespace Empiria.Governance.Contracts {
       foreach (var rule in rules) {
         var contract = Contract.Parse(rule.DocumentId);
 
-        var clauses = contract.GetClausesFromText(rule.DocumentItems);
+        FixedList<Clause> clauses = contract.GetClausesFromText(rule.DocumentItems);
 
         if (clauses.Count == 0) {
           rule.Save();
@@ -101,13 +101,6 @@ namespace Empiria.Governance.Contracts {
     #endregion Constructors and parsers
 
     #region Public properties
-
-    [DataField("UID")]
-    public string UID {
-      get;
-      private set;
-    }
-
 
     [DataField("DocumentId")]
     internal int DocumentId {
@@ -274,9 +267,6 @@ namespace Empiria.Governance.Contracts {
     #region Public methods
 
     protected override void OnSave() {
-      if (this.UID.Length == 0) {
-        this.UID = EmpiriaString.BuildRandomString(6, 24);
-      }
       ContractsData.WriteDocumentRule(this);
     }
 

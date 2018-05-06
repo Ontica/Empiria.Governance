@@ -70,13 +70,6 @@ namespace Empiria.Governance {
 
     #region Public properties
 
-    [DataField("UID")]
-    public string UID {
-      get;
-      private set;
-    } = String.Empty;
-
-
     [DataField("DocumentType")]
     public string DocumentType {
       get;
@@ -159,13 +152,6 @@ namespace Empiria.Governance {
     #endregion Public properties
 
     #region Public methods
-
-    protected override void OnBeforeSave() {
-      if (this.UID.Length == 0) {
-        this.UID = EmpiriaString.BuildRandomString(6, 24);
-      }
-    }
-
 
     protected override void OnSave() {
       DocumentsData.WriteDocument(this);

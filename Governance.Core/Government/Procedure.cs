@@ -181,13 +181,6 @@ namespace Empiria.Governance.Government {
 
     #region Public properties
 
-    [DataField("UID")]
-    public string UID {
-      get;
-      private set;
-    }
-
-
     [DataField("ProcedureName")]
     public string Name {
       get;
@@ -344,12 +337,6 @@ namespace Empiria.Governance.Government {
     #endregion Public properties
 
     #region Public methods
-
-    protected override void OnBeforeSave() {
-      if (this.UID.Length == 0) {
-        this.UID = EmpiriaString.BuildRandomString(6, 24);
-      }
-    }
 
     protected override void OnSave() {
       ProcedureData.WriteProcedure(this);

@@ -16,16 +16,18 @@ namespace Empiria.Governance.Government {
   static internal class ProcedureData {
 
     static internal FixedList<Procedure> GetProcedureList(string filter = "", string keywords = "") {
-      var sql = "SELECT * FROM vwGRCProcedures";
-
       if (keywords.Length != 0) {
         keywords = SearchExpression.ParseAndLike("Keywords", keywords);
       }
       filter = GeneralDataOperations.BuildSqlAndFilter(filter, keywords);
-      sql += GeneralDataOperations.GetFilterSortSqlString(filter, "ProcedureName, ProcedureId");
 
-      return DataReader.GetList(DataOperation.Parse(sql), x => BaseObject.ParseList<Procedure>(x))
-                       .ToFixedList();
+      if (filter.Length == 0) {
+        filter = GeneralDataOperations.AllRecordsFilter;
+      }
+
+      var op = DataOperation.Parse("@qryGRCProcedures", filter);
+
+      return DataReader.GetFixedList<Procedure>(op);
     }
 
     static internal void WriteProcedure(Procedure o) {

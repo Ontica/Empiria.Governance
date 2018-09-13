@@ -35,6 +35,11 @@
     },
     {
       "type": "",
+      "key": "IsDevelopmentServer",
+      "value": true
+    },
+    {
+      "type": "",
       "key": "System.Description",
       "value": "Empiria Governance Management Solution"
     },

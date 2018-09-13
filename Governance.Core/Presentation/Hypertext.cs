@@ -19,31 +19,33 @@ namespace Empiria.Governance.Presentation {
   public class Hypertext {
 
     static public string ToAcronymHypertext(string source) {
-      var template = TextTemplate.Parse("Acronym.Link");
+      return source;
 
-      var documentsList = Document.GetList();
+      //var template = TextTemplate.Parse("Acronym.Link");
 
-      var hypertext = source;
+      //var documentsList = Document.GetList();
 
-      foreach (var document in documentsList) {
+      //var hypertext = source;
 
-        // Begin dictionary work
+      //foreach (var document in documentsList) {
 
-        var textReplacementRules = new Dictionary<string, string>(2);
+      //  Begin dictionary work
 
-        textReplacementRules.Add("{{URL}}", document.Url);
-        textReplacementRules.Add("{{ACRONYM}}", document.Code);
-        textReplacementRules.Add("{{BUBBLE-TEXT}}", document.Name);
+      // var textReplacementRules = new Dictionary<string, string>(2);
 
-        var content = template.ParseContent(textReplacementRules);
+      //  textReplacementRules.Add("{{URL}}", document.Url);
+      //  textReplacementRules.Add("{{ACRONYM}}", document.Code);
+      //  textReplacementRules.Add("{{BUBBLE-TEXT}}", document.Name);
 
-        // End dictionary work
+      //  var content = template.ParseContent(textReplacementRules);
 
-        string textToFind = String.Format(@"\b{0}\b", document.Code);
+      //  End dictionary work
 
-        hypertext = Regex.Replace(hypertext, textToFind, content);
-      }
-      return hypertext;
+      //  string textToFind = String.Format(@"\b{0}\b", document.Code);
+
+      //  hypertext = Regex.Replace(hypertext, textToFind, content);
+      //}
+      //return hypertext;
     }
 
     static public string ToTermDefinitionHypertext(string source, Contract contract) {

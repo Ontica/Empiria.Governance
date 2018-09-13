@@ -114,6 +114,18 @@ namespace Empiria.Governance.WebApi {
       }
     }
 
+
+    [HttpPost]
+    [Route("v1/process-definitions/export-to-files")]
+    public void ExportToFiles() {
+      try {
+        Empiria.Governance.Government.Procedure.ExportBpmnDiagrams();
+
+      } catch (Exception e) {
+        throw base.CreateHttpException(e);
+      }
+    }
+
     #endregion UPDATE methods
 
   }  // class BpmnDiagramController

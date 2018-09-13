@@ -9,6 +9,7 @@
 ************************* Copyright(c) La Vía Óntica SC, Ontica LLC and contributors. All rights reserved. **/
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 using Empiria.DataTypes;
@@ -25,6 +26,8 @@ namespace Empiria.Governance.Government {
 
     #region Fields
 
+    private const string BPMN_DIAGRAMS_PATH = @"E:\empiria.files\covar.steps\bpmn.diagrams\";
+
     private Lazy<List<Requirement>> requirementsList = null;
 
     #endregion Fields
@@ -35,19 +38,23 @@ namespace Empiria.Governance.Government {
       // Required by Empiria Framework.
     }
 
+
     public Procedure(JsonObject data) {
       Assertion.AssertObject(data, "data");
 
       this.Load(data);
     }
 
+
     static public Procedure Parse(int id) {
       return BaseObject.ParseId<Procedure>(id);
     }
 
+
     static public Procedure Parse(string uid) {
       return BaseObject.ParseKey<Procedure>(uid);
     }
+
 
     static public Procedure Empty {
       get {
@@ -55,9 +62,11 @@ namespace Empiria.Governance.Government {
       }
     }
 
+
     static public FixedList<Procedure> GetList(string filter = "", string keywords = "") {
       return ProcedureData.GetProcedureList(filter, keywords);
     }
+
 
     static public FixedList<KeyValue> StartsWhenList {
       get {
@@ -67,6 +76,7 @@ namespace Empiria.Governance.Government {
       }
     }
 
+
     static public FixedList<string> ThemesList {
       get {
         var list = GeneralList.Parse("Governance.ProcedureThemes.List");
@@ -74,6 +84,7 @@ namespace Empiria.Governance.Government {
         return list.GetItems<string>();
       }
     }
+
 
     static public FixedList<KeyValue> TermTimeUnitsList {
       get {
@@ -83,30 +94,41 @@ namespace Empiria.Governance.Government {
       }
     }
 
+
     protected override void OnInitialize() {
       requirementsList = new Lazy<List<Requirement>>(() => Requirement.GetList(this));
     }
 
-    static public void UpdateAll() {
-      var procedures = BaseObject.GetList<Procedure>();
 
-      foreach (var procedure in procedures) {
-        procedure.Save();
+    static public void ExportBpmnDiagrams() {
+      var rootDirectory = new DirectoryInfo(BPMN_DIAGRAMS_PATH);
 
-        UpdateAllRelatedClauses(procedure, Contract.Parse(565), procedure.LegalInfo.Ronda13Consorcio);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(566), procedure.LegalInfo.Ronda13Individual);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(567), procedure.LegalInfo.Ronda14Consorcio);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(568), procedure.LegalInfo.Ronda14Individual);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(569), procedure.LegalInfo.Ronda21Consorcio);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(570), procedure.LegalInfo.Ronda21Individual);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(575), procedure.LegalInfo.Ronda24Consorcio);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(576), procedure.LegalInfo.Ronda24Individual);
-        UpdateAllRelatedClauses(procedure, Contract.Parse(577), procedure.LegalInfo.Santuario);
-      }
+      var targetDirectory = rootDirectory.CreateSubdirectory("export." + DateTime.Now.ToString("yyyy-MM-dd.HHmm"));
+
+      FixedList<BpmnDiagram> list = BpmnDiagram.GetList<BpmnDiagram>()
+                                               .ToFixedList();
+
+      list.Sort((x, y) => x.Name.CompareTo(y.Name));
+
+      foreach (var diagram in list) {
+        var temp = CleanForDiagramFileName(diagram.Name);
+
+        var fileName = Path.Combine(targetDirectory.FullName, temp + ".bpmn");
+
+        try {
+          if (diagram.Xml.Length != 0) {
+            File.WriteAllText(fileName, diagram.Xml);
+          }
+        } catch (Exception e) {
+          throw new Exception($"Error processing file {fileName}", e);
+        }
+
+      }  // foreach
     }
 
+
     static public void UpdateBpmnDiagrams() {
-      var directory = new System.IO.DirectoryInfo(@"E:\empiria.files\covar.steps\bpmn.diagrams\");
+      var directory = new DirectoryInfo(BPMN_DIAGRAMS_PATH);
 
       var files = directory.GetFiles("*.bpmn");
       var tags = String.Empty;
@@ -131,7 +153,7 @@ namespace Empiria.Governance.Government {
           tags = procedure.Keywords;
         }
 
-        var xml = System.IO.File.ReadAllText(file.FullName);
+        var xml = File.ReadAllText(file.FullName);
 
         var diagram = new BpmnDiagram(diagramName, xml, tags);
 
@@ -144,10 +166,24 @@ namespace Empiria.Governance.Government {
       }
     }
 
-    internal void SetBpmnDiagram(BpmnDiagram diagram) {
-      this.BpmnDiagram = diagram;
-      Save();
+    static public void UpdateAll() {
+      var procedures = BaseObject.GetList<Procedure>();
+
+      foreach (var procedure in procedures) {
+        procedure.Save();
+
+        UpdateAllRelatedClauses(procedure, Contract.Parse(565), procedure.LegalInfo.Ronda13Consorcio);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(566), procedure.LegalInfo.Ronda13Individual);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(567), procedure.LegalInfo.Ronda14Consorcio);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(568), procedure.LegalInfo.Ronda14Individual);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(569), procedure.LegalInfo.Ronda21Consorcio);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(570), procedure.LegalInfo.Ronda21Individual);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(575), procedure.LegalInfo.Ronda24Consorcio);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(576), procedure.LegalInfo.Ronda24Individual);
+        UpdateAllRelatedClauses(procedure, Contract.Parse(577), procedure.LegalInfo.Santuario);
+      }
     }
+
 
     private static void UpdateAllRelatedClauses(Procedure procedure,
                                                 Contract contract, string clausesAsText) {
@@ -338,9 +374,17 @@ namespace Empiria.Governance.Government {
 
     #region Public methods
 
+
     protected override void OnSave() {
       ProcedureData.WriteProcedure(this);
     }
+
+
+    internal void SetBpmnDiagram(BpmnDiagram diagram) {
+      this.BpmnDiagram = diagram;
+      Save();
+    }
+
 
     public void Update(JsonObject data) {
       Assertion.AssertObject(data, "data");
@@ -351,6 +395,22 @@ namespace Empiria.Governance.Government {
     #endregion Public methods
 
     #region Private methods
+
+
+    static private string CleanForDiagramFileName(string name) {
+      string temp = name.Replace("%", "pc");
+
+      temp = temp.Replace(":", "-");
+      temp = temp.Replace("\\", " ");
+      temp = temp.Replace("/", " ");
+
+      if (temp.Length > 176) {
+        temp = temp.Substring(0, 176);
+      }
+
+      return temp;
+    }
+
 
     private void Load(JsonObject data) {
       this.Name = data.Get<string>("name", this.Name);

@@ -23,6 +23,7 @@ namespace Empiria.Governance.WebApi {
 
       foreach (var procedure in list) {
         var item = new {
+          id = procedure.Id,
           uid = procedure.UID,
           name = procedure.Name,
           shortName = procedure.ShortName,

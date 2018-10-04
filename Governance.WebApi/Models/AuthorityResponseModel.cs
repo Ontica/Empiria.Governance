@@ -23,6 +23,7 @@ namespace Empiria.Governance.WebApi {
 
       foreach (var entity in list) {
         var item = new {
+          id = entity.Id,
           uid = entity.UID,
           name = entity.FullName,
           shortName = entity.Nickname
@@ -57,6 +58,7 @@ namespace Empiria.Governance.WebApi {
 
     static internal object ToResponse(this Entity entity) {
       return new {
+        id = entity.Id,
         uid = entity.UID,
         name = entity.FullName,
         shortName = entity.Nickname,

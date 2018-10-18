@@ -43,12 +43,18 @@ namespace Empiria.Governance.WebApi {
     }
 
     [HttpGet]
-    [Route("v1/procedures/{procedureUID}")]
-    public SingleObjectModel GetProcedure([FromUri] string procedureUID) {
+    [Route("v1/procedures/{procedureUIDOrId}")]
+    public SingleObjectModel GetProcedure([FromUri] string procedureUIDOrId) {
       try {
-        base.RequireResource(procedureUID, "procedureUID");
+        base.RequireResource(procedureUIDOrId, "procedureUIDOrId");
 
-        var procedure = Procedure.Parse(procedureUID);
+        Procedure procedure;
+
+        if (EmpiriaString.IsInteger(procedureUIDOrId)) {
+          procedure = Procedure.Parse(int.Parse(procedureUIDOrId));
+        } else {
+          procedure = Procedure.Parse(procedureUIDOrId);
+        }
 
         return new SingleObjectModel(this.Request, procedure.ToResponse(),
                                      typeof(Procedure).FullName);

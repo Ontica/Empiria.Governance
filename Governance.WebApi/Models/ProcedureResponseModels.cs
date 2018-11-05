@@ -22,23 +22,7 @@ namespace Empiria.Governance.WebApi {
      ArrayList array = new ArrayList(list.Count);
 
       foreach (var procedure in list) {
-        var item = new {
-          id = procedure.Id,
-          uid = procedure.UID,
-          name = procedure.Name,
-          shortName = procedure.ShortName,
-          modality = procedure.Modality,
-          code = procedure.Code,
-          theme = procedure.Theme,
-          executionMode = procedure.ExecutionMode,
-          projectType = procedure.ProjectType,
-          officialUrl = procedure.OfficialURL,
-          regulationUrl = procedure.RegulationURL,
-          entity = procedure.Authority.Entity.Alias,
-          office = procedure.Authority.Office.FullName
-          //status = Enum.GetName(typeof(GeneralObjectStatus), procedure.Status),
-        };
-        array.Add(item);
+        array.Add(procedure.ToShortResponse());
       }
       return array;
     }
@@ -46,47 +30,45 @@ namespace Empiria.Governance.WebApi {
 
     static internal object ToResponse(this Procedure procedure) {
       return new {
+        id = procedure.Id,
         uid = procedure.UID,
         name = procedure.Name,
         shortName = procedure.ShortName,
         modality = procedure.Modality,
         code = procedure.Code,
         theme = procedure.Theme,
-
-        executionMode = procedure.ExecutionMode,
-        projectType = procedure.ProjectType,
-        officialUrl = procedure.OfficialURL,
-        regulationUrl = procedure.RegulationURL,
-
         entityName = procedure.EntityName,
+
+        projectType = procedure.ProjectType,
+        executionMode = procedure.ExecutionMode,
+
         authorityName = procedure.AuthorityName,
         authorityTitle = procedure.AuthorityTitle,
         authorityContact = procedure.AuthorityContact,
 
-        authority = procedure.Authority.ToResponse(),
         legalInfo = procedure.LegalInfo,
         filingCondition = procedure.FilingCondition,
         filingFee = procedure.FilingFee,
         requirements = procedure.Requirements.ToResponse(),
+
+        officialUrl = procedure.OfficialURL,
+        regulationUrl = procedure.RegulationURL,
         notes = procedure.Notes,
         hypertext = procedure.HypertextFields
       };
     }
 
+
     static internal object ToShortResponse(this Procedure procedure) {
       return new {
+        id = procedure.Id,
         uid = procedure.UID,
         name = procedure.Name,
         shortName = procedure.ShortName,
         modality = procedure.Modality,
         code = procedure.Code,
         theme = procedure.Theme,
-
-        executionMode = procedure.ExecutionMode,
-        projectType = procedure.ProjectType,
-        officialUrl = procedure.OfficialURL,
-        regulationUrl = procedure.RegulationURL,
-        entity = procedure.Authority.Entity.Nickname
+        entityName = procedure.EntityName
       };
     }
 

@@ -20,6 +20,8 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <NeutralLanguage></NeutralLanguage>
     <Configurations>Debug;Release;Multisolutions</Configurations>
+    <AssemblyName>Empiria.Governance.WebApi</AssemblyName>
+    <RootNamespace>Empiria.Governance.WebApi</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' Or '$(Configuration)|$(Platform)' == 'Multisolutions|AnyCPU' ">
     <OutputPath>bin\</OutputPath>
@@ -54,15 +56,12 @@
   <ItemGroup>
     <Reference Include="System.Net.Http" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
     <ProjectReference Include="..\Governance.Core\Empiria.Governance.csproj" />
+    <ProjectReference Include="..\..\extensions\WebApi\Empiria.WebApi.csproj" />
   </ItemGroup>
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
-    <PackageReference Include="Empiria.KnowledgeBase.WebApi" Version="1.0.0" />
-    <PackageReference Include="Empiria.ProjectManagement.WebApi" Version="1.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
-    <ProjectReference Include="..\..\knowledge.base\KB.WebApi\Empiria.KB.WebApi.csproj" />
-    <ProjectReference Include="..\..\steps\Steps.ProjectManagement.WebApi\Empiria.ProjectManagement.WebApi.csproj" />
+    <PackageReference Include="Empiria.Governance" Version="1.0.0" />
+    <PackageReference Include="Empiria.WebApi" Version="2.0.0" />
   </ItemGroup>
 </Project>

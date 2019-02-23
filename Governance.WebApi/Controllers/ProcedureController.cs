@@ -101,6 +101,7 @@ namespace Empiria.Governance.WebApi {
       }
     }
 
+
     [HttpPost]
     [Route("v1/procedures/update-all")]
     public void UpdateAllProcedures() {
@@ -111,6 +112,7 @@ namespace Empiria.Governance.WebApi {
         throw base.CreateHttpException(e);
       }
     }
+
 
     [HttpPut, HttpPatch]
     [Route("v1/procedures/{procedureUID}")]

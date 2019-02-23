@@ -11,8 +11,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using Empiria.Workflow.Definition;
-
 using Empiria.Governance.Contracts;
 
 namespace Empiria.Governance.WebApi {
@@ -40,7 +38,6 @@ namespace Empiria.Governance.WebApi {
           uid = rule.UID,
           name = rule.Name,
           description = rule.Description,
-          workflowObjectUID = WorkflowObject.Parse(rule.WorkflowObjectId).UID,
           procedures = rule.Procedures.ToResponse()
         };
 

@@ -25,11 +25,14 @@ namespace Empiria.Governance.WebApi {
           type = document.DocumentType,
           name = document.Name,
           code = document.Code,
-          description = document.Description,
-          observations = document.Observations,
+          authority = document.Authority,
+          stage = document.Stage,
+          version = document.Version,
+          lastUpdated = document.LastUpdated,
+          fromDate = document.FromDate,
+          toDate = document.ToDate,
           url = document.Url,
-          sampleUrl = document.SampleURL,
-          instructionsUrl = document.InstructionsUrl
+          officialUrl = document.OfficialURL
         };
         array.Add(item);
       }

@@ -91,15 +91,45 @@ namespace Empiria.Governance {
     } = String.Empty;
 
 
-    [DataField("Description")]
-    public string Description {
+    [DataField("Authority")]
+    public string Authority {
       get;
       private set;
     } = String.Empty;
 
 
-    [DataField("Observations")]
-    public string Observations {
+    [DataField("Stage")]
+    public string Stage {
+      get;
+      private set;
+    } = String.Empty;
+
+
+
+    [DataField("Version")]
+    public string Version {
+      get;
+      private set;
+    } = String.Empty;
+
+
+
+    [DataField("LastUpdated")]
+    public string LastUpdated {
+      get;
+      private set;
+    } = String.Empty;
+
+
+    [DataField("FromDate")]
+    public string FromDate {
+      get;
+      private set;
+    } = String.Empty;
+
+
+    [DataField("ToDate")]
+    public string ToDate {
       get;
       private set;
     } = String.Empty;
@@ -122,18 +152,11 @@ namespace Empiria.Governance {
     }
 
 
-    [DataField("SampleURL")]
-    public string SampleURL {
+    [DataField("OfficialURL")]
+    public string OfficialURL {
       get;
       private set;
     }
-
-
-    [DataField("InstructionsURL")]
-    public string InstructionsUrl {
-      get;
-      private set;
-    } = String.Empty;
 
 
     [DataField("OwnerId")]
@@ -145,7 +168,7 @@ namespace Empiria.Governance {
 
     internal string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.Code, this.Name, this.Description, this.Observations);
+        return EmpiriaString.BuildKeywords(this.Code, this.Name, this.Authority, this.Stage);
       }
     }
 

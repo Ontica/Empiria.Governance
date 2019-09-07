@@ -198,6 +198,13 @@ namespace Empiria.Governance.Government {
     } = String.Empty;
 
 
+    [DataField("FictaNotes")]
+    public string FictaNotes {
+      get;
+      private set;
+    } = String.Empty;
+
+
     [DataField("HasInnerInteraction")]
     public string HasInnerInteraction {
       get;

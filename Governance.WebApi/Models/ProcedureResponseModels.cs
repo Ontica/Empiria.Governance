@@ -34,13 +34,18 @@ namespace Empiria.Governance.WebApi {
         uid = procedure.UID,
         name = procedure.Name,
         shortName = procedure.ShortName,
+        govName = procedure.GovName,
         modality = procedure.Modality,
         code = procedure.Code,
         theme = procedure.Theme,
+        subtheme = procedure.Subtheme,
+        tags = procedure.Tags,
         entityName = procedure.EntityName,
 
         projectType = procedure.ProjectType,
         executionMode = procedure.ExecutionMode,
+        projectTypeFlags = procedure.ProjectTypeFlags,
+        stageFlags = procedure.StageFlags,
 
         authorityName = procedure.AuthorityName,
         authorityTitle = procedure.AuthorityTitle,

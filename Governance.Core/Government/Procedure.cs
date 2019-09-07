@@ -229,6 +229,14 @@ namespace Empiria.Governance.Government {
       private set;
     }
 
+
+    [DataField("GovName")]
+    public string GovName {
+      get;
+      private set;
+    }
+
+
     [DataField("Modality")]
     public string Modality {
       get;
@@ -266,10 +274,11 @@ namespace Empiria.Governance.Government {
 
     public string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.Code, this.ShortName, this.Modality, this.Name,
+        return EmpiriaString.BuildKeywords(this.Code, this.ShortName, this.Modality, this.Name, this.GovName,
                                            this.EntityName, this.AuthorityContact, this.ProjectType,
+                                           this.Tags, this.Theme, this.Subtheme,
                                            this.FilingCondition.StartsWhenTrigger, this.FilingCondition.HowToFileAddress,
-                                           this.Theme, this.LegalInfo.LegalBasis, this.LegalInfo.Obligation);
+                                           this.LegalInfo.LegalBasis, this.LegalInfo.Obligation);
       }
     }
 
@@ -293,6 +302,21 @@ namespace Empiria.Governance.Government {
       private set;
     }
 
+
+    [DataField("Subtheme")]
+    public string Subtheme {
+      get;
+      private set;
+    }
+
+
+    [DataField("Tags")]
+    public string Tags {
+      get;
+      private set;
+    }
+
+
     [DataField("ExecutionMode")]
     public string ExecutionMode {
       get;
@@ -305,11 +329,27 @@ namespace Empiria.Governance.Government {
       private set;
     }
 
+
+    [DataField("ProjectTypeFlags")]
+    public int ProjectTypeFlags {
+      get;
+      private set;
+    }
+
+
+    [DataField("StageFlags")]
+    public int StageFlags {
+      get;
+      private set;
+    }
+
+
     [DataField("Entity")]
     public string EntityName {
       get;
       private set;
     }
+
 
     [DataField("Authority")]
     public string AuthorityName {
@@ -317,17 +357,20 @@ namespace Empiria.Governance.Government {
       private set;
     }
 
+
     [DataField("AuthorityTitle")]
     public string AuthorityTitle {
       get;
       private set;
     }
 
+
     [DataField("AuthorityContact")]
     public string AuthorityContact {
       get;
       private set;
     }
+
 
     [DataObject]
     public Authority Authority {

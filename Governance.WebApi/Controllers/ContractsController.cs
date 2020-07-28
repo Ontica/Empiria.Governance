@@ -30,6 +30,8 @@ namespace Empiria.Governance.WebApi {
 
         var contracts = Contract.GetList(contractDocumentType);
 
+        contracts.Sort((x, y) => x.Name.CompareTo(y.Name));
+
         return new CollectionModel(this.Request, contracts.ToResponse(),
                                    contractDocumentType.Name);
 

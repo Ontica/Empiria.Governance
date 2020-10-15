@@ -10,7 +10,7 @@
 using System;
 using System.Web.Http;
 
-using Empiria.DataTypes;
+using Empiria.DataTypes.Time;
 using Empiria.WebApi;
 
 using Empiria.Governance.Government;

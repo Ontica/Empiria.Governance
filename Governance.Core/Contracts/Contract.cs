@@ -53,7 +53,7 @@ namespace Empiria.Governance.Contracts {
     }
 
     static public FixedList<Contract> GetList(LegalDocumentType powertype) {
-      string filter = $"";
+      string filter = $"ObjectStatus <> 'X'";
 
       return Contract.GetList<Contract>(filter)
                      .ToFixedList();
@@ -123,9 +123,12 @@ namespace Empiria.Governance.Contracts {
       if (keywords.Length == 0) {
         return this.Clauses;
       }
+
       return Clause.GetList(this, keywords)
                    .ToFixedList();
     }
+
+
     internal FixedList<Clause> GetClausesFromText(string clausesAsText) {
       if (clausesAsText.Contains("Anexo")) {
         return new FixedList<Clause>();
@@ -156,11 +159,50 @@ namespace Empiria.Governance.Contracts {
     }
 
 
+    public FixedList<Clause> MatchClauses(string identificationText) {
+      if (identificationText.Contains("Anexo")) {
+        return GetAnnexesFromText(identificationText);
+
+      } else {
+        return GetClausesFromText(identificationText);
+      }
+    }
+
+
     public Clause TryGetClause(Predicate<Clause> predicate) {
       return clausesList.Value.Find(predicate);
     }
 
     #endregion Public methods
+
+    #region Private methods
+
+    private FixedList<Clause> GetAnnexesFromText(string annexesAsText) {
+      annexesAsText = annexesAsText.Replace(',', ' ')
+                                   .Replace(';', ' ');
+
+      annexesAsText = EmpiriaString.TrimAll(annexesAsText);
+
+      var clauseTextParts = annexesAsText.Split(' ');
+
+      if (clauseTextParts == null) {
+        return new FixedList<Clause>();
+      }
+
+      if (clauseTextParts.Length < 2 || !clauseTextParts[0].StartsWith("Anexo")) {
+        return new FixedList<Clause>();
+      }
+
+      var clauses = this.Clauses.FindAll((x) => x.Section == "Anexo" && x.Number == $"Anexo {clauseTextParts[1]}");
+
+      if (clauses != null) {
+        return clauses;
+      } else {
+        return new FixedList<Clause>();
+      }
+    }
+
+    #endregion Private methods
 
   }  // class Contract
 

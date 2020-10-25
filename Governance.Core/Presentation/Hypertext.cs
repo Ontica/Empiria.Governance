@@ -88,6 +88,8 @@ namespace Empiria.Governance.Presentation {
 
       return EmpiriaString.TrimAll(title);
     }
+
+
   }
 
   //}  // class Hypertext

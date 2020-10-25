@@ -55,6 +55,13 @@ namespace Empiria.Governance.Contracts {
     }
 
 
+    public static Clause Empty {
+      get {
+        return BaseObject.ParseEmpty<Clause>();
+      }
+    }
+
+
     static internal List<Clause> GetList(Contract legalDocument) {
       string filter = $"DocumentId = {legalDocument.Id}";
 

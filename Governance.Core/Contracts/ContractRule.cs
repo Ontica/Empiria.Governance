@@ -325,7 +325,7 @@ namespace Empiria.Governance.Contracts {
     }
 
     private void Load(JsonObject data) {
-
+      // no-op
     }
 
     #endregion Private methods

@@ -168,7 +168,8 @@ namespace Empiria.Governance {
 
     internal string Keywords {
       get {
-        return EmpiriaString.BuildKeywords(this.Code, this.Name, this.Authority, this.Stage);
+        return EmpiriaString.BuildKeywords(this.Code, this.Name, this.Authority,
+                                           this.Stage, this.DocumentType);
       }
     }
 

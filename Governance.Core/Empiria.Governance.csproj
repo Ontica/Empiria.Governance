@@ -56,7 +56,7 @@
   <ItemGroup Condition=" '$(Configuration)' != 'Multisolutions' ">
     <PackageReference Include="Empiria.Workflow" Version="1.0.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(Configuration)' == 'Multisolutions' ">
-    <ProjectReference Include="..\..\steps\Steps.Workflow\Empiria.Workflow.csproj" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\steps\Z.Version 2.0\Steps.Workflow\Empiria.Workflow.csproj" />
   </ItemGroup>
 </Project>
